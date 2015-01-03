@@ -1,5 +1,4 @@
-# ironSource Docker configuration for micro-services in production
-
+# ironSource Docker micro-services configuration
 The container runs a Node.js application behind a Nginx reverse proxy.
 Supervisor process control system runs our application within the container. 
 Every docker container receives an entry point, a process to run when the container starts. 
