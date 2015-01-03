@@ -1,6 +1,7 @@
-This is a template we use for Node.JS applications within Docker.
+# ironSource Docker configuration for micro-services in production
 
-The container runs a Node.js application behind a Nginx reverse proxy and the supervisor process control system runs our application within the container. 
+The container runs a Node.js application behind a Nginx reverse proxy.
+Supervisor process control system runs our application within the container. 
 Every docker container receives an entry point, a process to run when the container starts. 
 The entry point to our container is the supervisor. 
 Nginx and Node.js applications are started via the supervisor.
