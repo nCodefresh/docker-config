@@ -27,8 +27,8 @@ We use Ubuntu 14.04 both for the host and the container.
 * Container entry point - supervisord.
 
 # Amazon AMI bootstrap configuration
-# AMI - c3.large - ubuntu 14.04 - user-data:
 ```bash
+#AMI - c3.large - ubuntu 14.04 - user-data:
 #!/bin/bash
 sudo apt-get update
 sudo apt-get -y dist-upgrade
