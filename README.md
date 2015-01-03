@@ -11,23 +11,34 @@ Nginx listens on port 80 and acts as a reverse proxy to redirect traffic to the 
 
 We use Ubuntu 14.04 both for the host and the container.
 
-Application build flow:
-1. CI server detects a merge to the branch of the application.
-2. Code build process is initiated which pushes the new code to our private npm repository.
-3. Container build process is initiated which builds the container and pushes it to a private docker repo.
+# Application build flow:
+* CI server detects a merge to the branch of the application.
+* Code build process is initiated which pushes the new code to our private npm repository.
+* Container build process is initiated which builds the container and pushes it to a private docker repo.
 
-Container build process
-1. Ubuntu base image
-2. Security upgrades.
-3. Installation of needed packages - nodejs npm supervisor nginx.
-4. Copy resources from the build machine into container.
-5. Place .conf files in the correct location inside the container.
-6. Checking out the latest stable code from the npm repository (artifactory) and place in correct location
-7. Expose port 80.
-8. Container entry point - supervisord.
+# Container build process
+* Ubuntu base image
+* Security upgrades.
+*  Installation of needed packages - nodejs npm supervisor nginx.
+* Copy resources from the build machine into container.
+* Place .conf files in the correct location inside the container.
+* Checking out the latest stable code from the npm repository (artifactory) and place in correct location
+* Expose port 80.
+* Container entry point - supervisord.
 
-Further research
-1. Use lightweight linux host and container OS (CoreOS?)
-2. Container OS monitoring (New Relic?)
-3. Use of a container management service (ECS?)
-4. Implementation of the system on Microsoft Azure.
+# Amazon AMI bootstrap configuration
+# AMI - c3.large - ubuntu 14.04 - user-data:
+```bash
+#!/bin/bash
+sudo apt-get update
+sudo apt-get -y dist-upgrade
+sudo apt-get -y install docker.io
+sudo docker login -u <user> -p <password> -e <email>
+sudo docker pull user/container
+sudo docker run -p 80:80 -d user/container
+```
+# Further research
+* Use lightweight linux host and container OS (CoreOS?).
+* Container OS monitoring (New Relic?).
+* Use of a container management service (ECS?).
+* Implementation of the system on Microsoft Azure.
