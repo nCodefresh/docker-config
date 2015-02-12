@@ -6,7 +6,7 @@ RUN	apt-get update \
 	&& apt-get -y install nodejs npm supervisor nginx
 
 # Bundle app source
-COPY resources/ /home/ubuntu/
+COPY 	resources/ /home/ubuntu/
 
 # Install app dependencies
 RUN	cp /usr/bin/nodejs /usr/bin/node \
