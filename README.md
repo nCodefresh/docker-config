@@ -30,12 +30,12 @@ We use Ubuntu 14.04 both for the host and the container.
 ```bash
 #AMI - c3.large - ubuntu 14.04 - user-data:
 #!/bin/bash
-sudo apt-get update
-sudo apt-get -y dist-upgrade
-sudo apt-get -y install docker.io
-sudo docker login -u <user> -p <password> -e <email>
-sudo docker pull user/container
-sudo docker run -p 80:80 -d user/container
+apt-get update
+apt-get -y dist-upgrade
+apt-get -y install docker.io
+docker login -u <user> -p <password> -e <email>
+docker pull user/container
+docker run -p 80:80 -d user/container
 ```
 # Further research
 * Use lightweight linux host and container OS (CoreOS?).
