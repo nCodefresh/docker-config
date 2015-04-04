@@ -3,7 +3,7 @@ FROM	ubuntu:14.04
 # Update the container
 RUN	apt-get update \
 	&& apt-get -y install nodejs npm supervisor nginx unattended-upgrades \
-	&& unattended-upgrades \
+	&& unattended-upgrades
 
 # Copy code and configuration to container
 COPY 	infra/ /home/ubuntu/infra
