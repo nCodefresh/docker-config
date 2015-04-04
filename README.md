@@ -28,13 +28,12 @@ We use Ubuntu 14.04 both for the host and the container.
 
 # Amazon AMI bootstrap configuration
 ```bash
-#AMI - c3.large - ubuntu 14.04 - user-data:
+#AMI - c4.large - ubuntu 14.04 - user-data:
 #!/bin/bash
 apt-get update
-apt-get -y dist-upgrade
-apt-get -y install docker.io
+unattended-upgrades
+wget -qO- https://get.docker.com/ | sh
 docker login -u <user> -p <password> -e <email>
-docker pull user/container
 docker run -p 80:80 -d user/container
 ```
 # Further research
