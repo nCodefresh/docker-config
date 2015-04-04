@@ -1,23 +1,20 @@
 FROM	ubuntu:14.04
 
-# Update the host
+# Update the container
 RUN	apt-get update \
-	&& apt-get -y dist-upgrade \
-	&& apt-get -y install nodejs npm supervisor nginx
+	&& unattended-upgrades \
+	&& apt-get -y install nodejs npm supervisor nginx 
 
-# Bundle app source
-COPY 	resources/ /home/ubuntu/
+# Copy code and configuration to container
+COPY 	infra/ /home/ubuntu/infra
+COPY    code /home/ubuntu/code
 
-# Install app dependencies
-RUN	cp /usr/bin/nodejs /usr/bin/node \
+# Install app dependencies and place resources in the required locations
+RUN	ln -s "$(which nodejs)" /usr/bin/node \
 	&& cp /home/ubuntu/infra/supervisord.conf /etc/supervisor/supervisord.conf \
-  	&& cd /home/ubuntu/infra; mv .npmrc ~/.npmrc \
-	&& cd /home/ubuntu/code/src; npm install ironsource-synergy \
-	&& mv /home/ubuntu/code/src/node_modules/ironsource-synergy /home/ubuntu/code/src \
-	&& rm -rf /home/ubuntu/code/src/node_modules/ \
-	&& cp /home/ubuntu/infra/nginx.conf /etc/nginx/nginx.conf \
+        && cp /home/ubuntu/infra/nginx.conf /etc/nginx/nginx.conf \
+	&& cd /home/ubuntu/code/; npm install \
 	&& cp -R /home/ubuntu/infra/supervisor/* /etc/supervisor/conf.d/
-	
-EXPOSE  80
 
+EXPOSE  80
 CMD 	["/usr/bin/supervisord"]
