@@ -31,6 +31,7 @@ We use Ubuntu 14.04 both for the host and the container.
 #AMI - c4.large - ubuntu 14.04 - user-data:
 #!/bin/bash
 apt-get update
+apt-get -y install unattended-upgrades
 unattended-upgrades
 wget -qO- https://get.docker.com/ | sh
 docker login -u <user> -p <password> -e <email>
